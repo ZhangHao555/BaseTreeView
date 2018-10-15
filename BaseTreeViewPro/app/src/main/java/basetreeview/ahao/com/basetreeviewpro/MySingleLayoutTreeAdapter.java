@@ -3,7 +3,7 @@ package basetreeview.ahao.com.basetreeviewpro;
 import android.support.annotation.Nullable;
 
 import com.ahao.basetreeview.adapter.SingleLayoutTreeAdapter;
-import com.ahao.basetreeview.TreeNode;
+import com.ahao.basetreeview.model.TreeNode;
 import com.ahao.basetreeview.util.DpUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
 

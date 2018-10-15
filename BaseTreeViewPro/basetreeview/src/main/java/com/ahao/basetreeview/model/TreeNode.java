@@ -109,6 +109,7 @@ public class TreeNode<T extends NodeId> implements MultiItemEntity {
         if(isLeaf()){
             return -1;
         }
-        return getLevel() >= maxViewType ? maxViewType : getLevel();
+        int level = getLevel();
+        return level >= maxViewType ? maxViewType : level;
     }
 }

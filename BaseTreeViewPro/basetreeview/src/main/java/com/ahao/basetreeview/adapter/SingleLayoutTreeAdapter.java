@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import com.ahao.basetreeview.model.NodeId;
 import com.ahao.basetreeview.model.TreeNode;
 import com.ahao.basetreeview.util.DpUtil;
-import com.ahao.basetreeview.util.TreeUtils;
+import com.ahao.basetreeview.util.TreeDataUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -37,7 +37,7 @@ public class SingleLayoutTreeAdapter<T extends NodeId> extends BaseQuickAdapter<
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 TreeNode<T> node = dataToBind.get(position);
                 if (!node.isLeaf()) {
-                    List<TreeNode<T>> l = TreeUtils.getNodeChildren(node);
+                    List<TreeNode<T>> l = TreeDataUtils.getNodeChildren(node);
 
                     if (node.isExpand()) {
                         dataToBind.removeAll(l);

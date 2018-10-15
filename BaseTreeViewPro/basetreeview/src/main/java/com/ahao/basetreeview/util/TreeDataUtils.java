@@ -5,7 +5,7 @@ import com.ahao.basetreeview.model.TreeNode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeUtils {
+public class TreeDataUtils {
 
     private static <T extends NodeId> List<TreeNode<T>> convertDataToTreeNode(List<T> datas, int maxViewType) {
         List<TreeNode<T>> nodes = new ArrayList<>();
@@ -54,6 +54,32 @@ public class TreeUtils {
         }
 
         return result;
+    }
+
+    public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas, int maxViewType) {
+        List<TreeNode<T>> result = new ArrayList<>();
+        List<TreeNode<T>> treeNodes = convertDataToTreeNode(datas,maxViewType);
+        List<TreeNode<T>> rootNodes = getRootNodes(treeNodes);
+
+        int currentLevel = 0;
+        for (TreeNode node : rootNodes) {
+            addNode(result, node, currentLevel);
+        }
+
+        return result;
+    }
+
+    public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas) {
+        List<TreeNode<T>> result = new ArrayList<>();
+        List<TreeNode<T>> treeNodes = convertDataToTreeNode(datas,-1);
+        List<TreeNode<T>> rootNodes = getRootNodes(treeNodes);
+
+        int currentLevel = 0;
+        for (TreeNode node : rootNodes) {
+            addNode(result, node, currentLevel);
+        }
+
+        return result;
 
     }
 
@@ -69,6 +95,18 @@ public class TreeUtils {
             List<TreeNode> children = node.getChildren();
             for (TreeNode n : children) {
                 addNode(result, n, defaultExpandLevel, currentLevel + 1);
+            }
+        }
+    }
+
+    private static <T extends NodeId> void addNode(List<TreeNode<T>> result, TreeNode node, int currentLevel) {
+        node.setLevel(currentLevel);
+        result.add(node);
+
+        if (!node.isLeaf()) {
+            List<TreeNode> children = node.getChildren();
+            for (TreeNode n : children) {
+                addNode(result, n, currentLevel + 1);
             }
         }
     }
