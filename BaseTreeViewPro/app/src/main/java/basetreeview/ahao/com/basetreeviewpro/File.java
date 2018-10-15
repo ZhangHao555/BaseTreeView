@@ -1,6 +1,6 @@
 package basetreeview.ahao.com.basetreeviewpro;
 
-import com.ahao.basetreeview.NodeId;
+import com.ahao.basetreeview.model.NodeId;
 
 public class File implements NodeId {
 

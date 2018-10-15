@@ -1,12 +1,8 @@
 package basetreeview.ahao.com.basetreeviewpro;
 
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
-import com.ahao.basetreeview.SingleLayoutTreeAdapter;
+import com.ahao.basetreeview.adapter.SingleLayoutTreeAdapter;
 import com.ahao.basetreeview.TreeNode;
 import com.ahao.basetreeview.util.DpUtil;
 import com.chad.library.adapter.base.BaseViewHolder;
