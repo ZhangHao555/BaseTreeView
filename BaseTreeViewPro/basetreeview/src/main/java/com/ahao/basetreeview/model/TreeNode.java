@@ -24,6 +24,7 @@ public class TreeNode<T extends NodeId> implements MultiItemEntity {
 
     public TreeNode(T data,int maxViewType) {
         this.data = data;
+        this.maxViewType = maxViewType;
     }
 
     public String getId() {
@@ -109,7 +110,6 @@ public class TreeNode<T extends NodeId> implements MultiItemEntity {
         if(isLeaf()){
             return -1;
         }
-        int level = getLevel();
         return level >= maxViewType ? maxViewType : level;
     }
 }

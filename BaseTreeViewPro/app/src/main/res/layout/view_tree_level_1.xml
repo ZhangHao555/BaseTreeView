@@ -1,38 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:id="@+id/container"
-android:layout_width="match_parent"
-android:layout_height="62dp">
-
-<ImageView
-    android:id="@+id/level_icon"
-    android:layout_width="20dp"
-    android:layout_height="20dp"
-    android:layout_centerVertical="true"
-    android:src="@drawable/tree_icon_expand"
-    />
-
-<TextView
-    android:id="@+id/textView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="31dp"
-    android:layout_marginRight="12dp"
-    android:layout_toRightOf="@+id/level_icon"
-    android:ellipsize="end"
-    android:gravity="center"
-    android:paddingLeft="8dp"
-    android:text="filename"
-    android:textColor="#000"
-    android:textSize="15sp"
-    android:layout_below="@+id/id"
-    />
+    android:layout_height="62dp">
+
+    <ImageView
+        android:id="@+id/level_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/tree_icon_expand"/>
 
     <TextView
-        android:layout_marginLeft="100dp"
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
+        android:id="@+id/textView"
+        android:layout_width="100dp"
         android:layout_height="31dp"
+        android:layout_below="@+id/id"
+        android:layout_marginRight="12dp"
+        android:layout_toRightOf="@+id/level_icon"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:layout_marginLeft="30dp"
+        android:text="filename"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="107dp"
+        android:layout_height="31dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginRight="12dp"
         android:layout_toRightOf="@+id/level_icon"
         android:ellipsize="end"
@@ -40,9 +39,7 @@ android:layout_height="62dp">
         android:paddingLeft="8dp"
         android:text="filename"
         android:textColor="#000"
-        android:textSize="15sp"
-
-        />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/parentId"
@@ -50,12 +47,10 @@ android:layout_height="62dp">
         android:layout_height="31dp"
         android:layout_toRightOf="@+id/id"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:paddingLeft="8dp"
         android:text="filename"
         android:textColor="#000"
-        android:textSize="15sp"
-        android:gravity="center_vertical"
-        />
-
+        android:textSize="15sp" />
 
 </RelativeLayout>
