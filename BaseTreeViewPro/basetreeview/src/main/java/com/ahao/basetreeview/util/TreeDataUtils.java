@@ -57,30 +57,11 @@ public class TreeDataUtils {
     }
 
     public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas, int maxViewType) {
-        List<TreeNode<T>> result = new ArrayList<>();
-        List<TreeNode<T>> treeNodes = convertDataToTreeNode(datas,maxViewType);
-        List<TreeNode<T>> rootNodes = getRootNodes(treeNodes);
-
-        int currentLevel = 0;
-        for (TreeNode node : rootNodes) {
-            addNode(result, node, currentLevel);
-        }
-
-        return result;
+        return getSortedNodes(datas,-1,maxViewType);
     }
 
     public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas) {
-        List<TreeNode<T>> result = new ArrayList<>();
-        List<TreeNode<T>> treeNodes = convertDataToTreeNode(datas,-1);
-        List<TreeNode<T>> rootNodes = getRootNodes(treeNodes);
-
-        int currentLevel = 0;
-        for (TreeNode node : rootNodes) {
-            addNode(result, node, currentLevel);
-        }
-
-        return result;
-
+        return getSortedNodes(datas,-1,-1);
     }
 
     private static <T extends NodeId> void addNode(List<TreeNode<T>> result, TreeNode node, int defaultExpandLevel, int currentLevel) {
@@ -99,18 +80,6 @@ public class TreeDataUtils {
         }
     }
 
-    private static <T extends NodeId> void addNode(List<TreeNode<T>> result, TreeNode node, int currentLevel) {
-        node.setLevel(currentLevel);
-        result.add(node);
-
-        if (!node.isLeaf()) {
-            List<TreeNode> children = node.getChildren();
-            for (TreeNode n : children) {
-                addNode(result, n, currentLevel + 1);
-            }
-        }
-    }
-
     public static <T extends NodeId> List<TreeNode<T>> filterNode(List<TreeNode<T>> nodes){
         List<TreeNode<T>> result = new ArrayList<>();
         if(!ListUtil.isEmpty(nodes)){
@@ -122,7 +91,6 @@ public class TreeDataUtils {
         }
         return result;
     }
-
 
     public static <T extends NodeId> List<TreeNode<T>> getNodeChildren(TreeNode<T> node){
         List<TreeNode<T>> result = new ArrayList<>();

@@ -35,13 +35,12 @@ public class MyMultiLayoutTreeAdapter extends MultiLayoutTreeAdapter<File> {
         }
 
 
-
     }
 
     private void resolveLevel1(BaseViewHolder helper, TreeNode<File> item) {
-        helper.setText(R.id.textView, item.getData().getName());
-        helper.setText(R.id.id, item.getId());
-        helper.setText(R.id.parentId, item.getPId());
+        helper.setText(R.id.textView, "name:" + item.getData().getName());
+        helper.setText(R.id.id, "id:" + item.getId());
+        helper.setText(R.id.parentId, "pid:" + item.getPId());
 
         if (item.isExpand()) {
             helper.setImageResource(R.id.level_icon, R.drawable.tree_icon_collapse);
