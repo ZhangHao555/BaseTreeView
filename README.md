@@ -30,6 +30,12 @@ allprojects {
 ```
    implementation 'com.github.ZhangHao555:BaseTreeView:v1.2'
 ```
+本项目是基于 appcompat 26.1.0编写，如果有冲突，可以使用强制依赖，例如
+```
+    implementation ('com.android.support:appcompat-v7:28.0.0'){
+        force = true
+    }
+```
 #### 单布局
 
 1、model需要实现 NodeId id接口, 例如定义一个File
