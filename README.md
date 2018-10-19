@@ -28,7 +28,7 @@ allprojects {
 ```
 2、添加依赖
 ```
-   implementation 'com.github.ZhangHao555:BaseTreeView:v1.2'
+   implementation 'com.github.ZhangHao555:BaseTreeView:v1.3'
 ```
 本项目是基于 appcompat 26.1.0编写，如果有冲突，可以使用强制依赖，例如
 ```
@@ -230,9 +230,8 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        allData = TreeDataUtils.getSortedNodes(DataSource.getFiles());
-        dataToBind.addAll(TreeDataUtils.filterNode(allData));
-        adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind,allData);
+        dataToBind = TreeDataUtils.convertDataToTreeNode(DataSource.getFiles());
+        adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind);
     }
 
     private void initUI() {
