@@ -11,8 +11,8 @@ import java.util.List;
 
 public class MySingleLayoutTreeAdapter extends SingleLayoutTreeAdapter<File> {
 
-    public MySingleLayoutTreeAdapter(int layoutResId, @Nullable List<TreeNode<File>> dataToBind, @Nullable List<TreeNode<File>> allData) {
-        super(layoutResId, dataToBind, allData);
+    public MySingleLayoutTreeAdapter(int layoutResId, @Nullable List<TreeNode<File>> dataToBind) {
+        super(layoutResId, dataToBind);
     }
 
     @Override

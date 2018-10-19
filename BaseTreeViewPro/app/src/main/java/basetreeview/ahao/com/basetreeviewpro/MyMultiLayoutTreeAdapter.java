@@ -8,8 +8,8 @@ import java.util.List;
 
 public class MyMultiLayoutTreeAdapter extends MultiLayoutTreeAdapter<File> {
 
-    public MyMultiLayoutTreeAdapter(List<TreeNode<File>> dataToBind, List<TreeNode<File>> allData) {
-        super(dataToBind, allData);
+    public MyMultiLayoutTreeAdapter(List<TreeNode<File>> dataToBind) {
+        super(dataToBind);
     }
 
     @Override

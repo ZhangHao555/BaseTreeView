@@ -21,8 +21,6 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
 
     MySingleLayoutTreeAdapter adapter;
 
-    private List<TreeNode<File>> allData = new ArrayList<>();
-
     private List<TreeNode<File>> dataToBind = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,9 +54,8 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        allData = TreeDataUtils.getSortedNodes(DataSource.getFiles());
-        dataToBind.addAll(TreeDataUtils.filterNode(allData));
-        adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind,allData);
+        dataToBind = TreeDataUtils.convertDataToTreeNode(DataSource.getFiles());
+        adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind);
     }
 
     private void initUI() {

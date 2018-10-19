@@ -23,14 +23,12 @@ public class SingleLayoutTreeAdapter<T extends NodeId> extends BaseQuickAdapter<
     }
 
     private List<TreeNode<T>> dataToBind;
-    private List<TreeNode<T>> allData;
 
     private OnTreeClickedListener onTreeClickedListener;
 
-    public SingleLayoutTreeAdapter(int layoutResId, @Nullable final List<TreeNode<T>> dataToBind, @Nullable List<TreeNode<T>> allData) {
+    public SingleLayoutTreeAdapter(int layoutResId, @Nullable final List<TreeNode<T>> dataToBind) {
         super(layoutResId, dataToBind);
         this.dataToBind = dataToBind;
-        this.allData = allData;
 
         setOnItemClickListener(new OnItemClickListener() {
             @Override

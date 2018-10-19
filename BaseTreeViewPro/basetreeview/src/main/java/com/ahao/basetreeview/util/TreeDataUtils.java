@@ -1,111 +1,61 @@
 package com.ahao.basetreeview.util;
 
+import android.text.TextUtils;
+
 import com.ahao.basetreeview.model.NodeId;
 import com.ahao.basetreeview.model.TreeNode;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class TreeDataUtils {
 
-    private static <T extends NodeId> List<TreeNode<T>> convertDataToTreeNode(List<T> datas, int maxViewType) {
+    public static <T extends NodeId> List<TreeNode<T>> convertDataToTreeNode(List<T> datas, int maxViewType) {
         List<TreeNode<T>> nodes = new ArrayList<>();
-        if (!ListUtil.isEmpty(datas)) {
-            for (NodeId nodeId : datas) {
-                nodes.add(new TreeNode(nodeId,maxViewType));
-            }
+        Map<String, TreeNode<T>> map = new HashMap();
 
-            for (int i = 0; i < nodes.size(); i++) {
-                TreeNode n = nodes.get(i);
-                for (int j = i + 1; j < nodes.size(); j++) {
-                    TreeNode m = nodes.get(j);
-                    if (n.getPId().equals(m.getId())) {
-                        n.setParent(m);
-                        m.getChildren().add(n);
-                    } else if (n.getId().equals(m.getPId())) {
-                        n.getChildren().add(m);
-                        m.setParent(n);
-                    }
-                }
+        for (NodeId nodeId : datas) {
+            TreeNode treeNode = new TreeNode(nodeId, maxViewType);
+            nodes.add(treeNode);
+            map.put(nodeId.getId(), treeNode);
+        }
+
+        Iterator<TreeNode<T>> iterator = nodes.iterator();
+        while(iterator.hasNext()){
+            TreeNode<T> treeNode = iterator.next();
+            String pId = treeNode.getPId();
+            TreeNode<T> parentNode = map.get(pId);
+            if (parentNode != null) {
+                parentNode.getChildren().add(treeNode);
+                treeNode.setParent(parentNode);
+                iterator.remove();
             }
         }
+
         return nodes;
     }
 
-    private static <T extends NodeId> List<TreeNode<T>> getRootNodes(List<TreeNode<T>> nodes) {
-        List<TreeNode<T>> roots = new ArrayList<>();
-        if (!ListUtil.isEmpty(nodes)) {
-            for (TreeNode node : nodes) {
-                if (node.isRoot()) {
-                    roots.add(node);
-                }
-            }
-        }
-        return roots;
+    public static <T extends NodeId> List<TreeNode<T>> convertDataToTreeNode(List<T> datas) {
+        return convertDataToTreeNode(datas, -1);
     }
 
-    public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas, int defaultExpandLevel, int maxViewType) {
+    public static <T extends NodeId> List<TreeNode<T>> getNodeChildren(TreeNode<T> node) {
         List<TreeNode<T>> result = new ArrayList<>();
-        List<TreeNode<T>> treeNodes = convertDataToTreeNode(datas,maxViewType);
-        List<TreeNode<T>> rootNodes = getRootNodes(treeNodes);
-
-        int currentLevel = 0;
-        for (TreeNode node : rootNodes) {
-            addNode(result, node, defaultExpandLevel, currentLevel);
-        }
-
-        return result;
-    }
-
-    public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas, int maxViewType) {
-        return getSortedNodes(datas,-1,maxViewType);
-    }
-
-    public static <T extends NodeId> List<TreeNode<T>> getSortedNodes(List<T> datas) {
-        return getSortedNodes(datas,-1,-1);
-    }
-
-    private static <T extends NodeId> void addNode(List<TreeNode<T>> result, TreeNode node, int defaultExpandLevel, int currentLevel) {
-        node.setLevel(currentLevel);
-        result.add(node);
-
-        if (defaultExpandLevel >= currentLevel) {
-            node.setExpand(true);
-        }
-
-        if (!node.isLeaf()) {
-            List<TreeNode> children = node.getChildren();
-            for (TreeNode n : children) {
-                addNode(result, n, defaultExpandLevel, currentLevel + 1);
-            }
-        }
-    }
-
-    public static <T extends NodeId> List<TreeNode<T>> filterNode(List<TreeNode<T>> nodes){
-        List<TreeNode<T>> result = new ArrayList<>();
-        if(!ListUtil.isEmpty(nodes)){
-            for(TreeNode node : nodes){
-                if(node.isRoot() || node.isParentExpand()){
-                    result.add(node);
-                }
-            }
-        }
-        return result;
-    }
-
-    public static <T extends NodeId> List<TreeNode<T>> getNodeChildren(TreeNode<T> node){
-        List<TreeNode<T>> result = new ArrayList<>();
-        getRNodeChildren(result,node);
+        getRNodeChildren(result, node);
         return result;
     }
 
     private static <T extends NodeId> void getRNodeChildren(List<TreeNode<T>> result, TreeNode<T> node) {
         List<TreeNode<T>> children = node.getChildren();
-        for(TreeNode n :  children){
+        for (TreeNode n : children) {
             result.add(n);
-            if(n.isExpand() && !n.isLeaf()){
-                getRNodeChildren(result,n);
+            if (n.isExpand() && !n.isLeaf()) {
+                getRNodeChildren(result, n);
             }
         }
     }
+
 
 }

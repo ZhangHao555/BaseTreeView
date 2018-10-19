@@ -24,15 +24,12 @@ public class MultiLayoutTreeAdapter<T extends NodeId> extends BaseMultiItemQuick
     }
 
     private List<TreeNode<T>> dataToBind;
-    private List<TreeNode<T>> allData;
 
     private OnTreeClickedListener onTreeClickedListener;
 
-    public MultiLayoutTreeAdapter(final List<TreeNode<T>> dataToBind, final List<TreeNode<T>> allData) {
+    public MultiLayoutTreeAdapter(final List<TreeNode<T>> dataToBind) {
         super(dataToBind);
-
         this.dataToBind = dataToBind;
-        this.allData = allData;
 
         addItemTypes();
 
@@ -41,16 +38,16 @@ public class MultiLayoutTreeAdapter<T extends NodeId> extends BaseMultiItemQuick
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 TreeNode<T> node = dataToBind.get(position);
                 if (!node.isLeaf()) {
-                    List<TreeNode<T>> l = TreeDataUtils.getNodeChildren(node);
+                    List<TreeNode<T>> children = TreeDataUtils.getNodeChildren(node);
 
                     if (node.isExpand()) {
-                        dataToBind.removeAll(l);
+                        dataToBind.removeAll(children);
                         node.setExpand(false);
-                        notifyItemRangeRemoved(position + 1, l.size());
+                        notifyItemRangeRemoved(position + 1, children.size());
                     } else {
-                        dataToBind.addAll(position + 1, l);
+                        dataToBind.addAll(position + 1, children);
                         node.setExpand(true);
-                        notifyItemRangeInserted(position + 1, l.size());
+                        notifyItemRangeInserted(position + 1, children.size());
                     }
 
                     if (onTreeClickedListener != null) {
