@@ -28,7 +28,7 @@ allprojects {
 ```
 2、添加依赖
 ```
-   implementation 'com.github.ZhangHao555:BaseTreeView:v1.3'
+   implementation 'com.github.ZhangHao555:BaseTreeView:v1.4'
 ```
 本项目是基于 appcompat 26.1.0编写，如果有冲突，可以使用强制依赖，例如
 ```
@@ -101,8 +101,8 @@ public class File implements NodeId {
 ```
 public class MySingleLayoutTreeAdapter extends SingleLayoutTreeAdapter<File> {
 
-    public MySingleLayoutTreeAdapter(int layoutResId, @Nullable List<TreeNode<File>> dataToBind, @Nullable List<TreeNode<File>> allData) {
-        super(layoutResId, dataToBind, allData);
+    public MySingleLayoutTreeAdapter(int layoutResId, @Nullable List<TreeNode<File>> dataToBind) {
+        super(layoutResId, dataToBind);
     }
 
     @Override
@@ -123,7 +123,7 @@ public class MySingleLayoutTreeAdapter extends SingleLayoutTreeAdapter<File> {
 
     @Override
     protected int getTreeNodeMargin() {
-        return  DpUtil.dip2px(this.mContext, 30);
+        return  DpUtil.dip2px(this.mContext, 10);
     }
 }
 
@@ -132,16 +132,14 @@ public class MySingleLayoutTreeAdapter extends SingleLayoutTreeAdapter<File> {
 3、声明并构造数据源、适配器
 ```
 
-    private List<TreeNode<File>> allData = new ArrayList<>();
-
     private List<TreeNode<File>> dataToBind = new ArrayList<>();
     
     MySingleLayoutTreeAdapter adapter;
     
      private void initData() {
-        allData = TreeDataUtils.getSortedNodes(DataSource.getFiles());
-        dataToBind.addAll(TreeDataUtils.filterNode(allData));
-        adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind,allData);
+        dataToBind.clear();
+        dataToBind.addAll(TreeDataUtils.convertDataToTreeNode(DataSource.getFiles()));
+        adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind);
     }
     
 ```
@@ -172,30 +170,12 @@ public class MySingleLayoutTreeAdapter extends SingleLayoutTreeAdapter<File> {
 
 5、完整代码
 ```
-package basetreeview.ahao.com.basetreeviewpro;
-
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.ImageView;
-
-import com.ahao.basetreeview.model.TreeNode;
-import com.ahao.basetreeview.util.TreeDataUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class SingleLayoutTreeActivity extends AppCompatActivity {
 
     private final static String TAG = "TreeActivity";
     RecyclerView recyclerView;
 
     MySingleLayoutTreeAdapter adapter;
-
-    private List<TreeNode<File>> allData = new ArrayList<>();
 
     private List<TreeNode<File>> dataToBind = new ArrayList<>();
     @Override
@@ -230,7 +210,8 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        dataToBind = TreeDataUtils.convertDataToTreeNode(DataSource.getFiles());
+        dataToBind.clear();
+        dataToBind.addAll(TreeDataUtils.convertDataToTreeNode(DataSource.getFiles()));
         adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind);
     }
 
@@ -241,6 +222,7 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
     }
 }
 
+
 ```
 
 
@@ -250,10 +232,10 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
 如果maxViewType传入1，表示为要为层级为 -1，0，1的结点设置布局。  
 如果传入2，表示为要为层级为 -1，0，1，2的结点设置布局。
 ```
- private void initData() {
-        allData = TreeDataUtils.getSortedNodes(DataSource.getFiles(),1);
-        dataToBind.addAll(TreeDataUtils.filterNode(allData));
-        adapter = new MyMultiLayoutTreeAdapter(dataToBind,allData);
+     private void initData() {
+        dataToBind.clear();
+        dataToBind.addAll(TreeDataUtils.convertDataToTreeNode(DataSource.getFiles(),1));
+        adapter = new MyMultiLayoutTreeAdapter(dataToBind);
     }
 ```
 
@@ -269,8 +251,8 @@ import java.util.List;
 
 public class MyMultiLayoutTreeAdapter extends MultiLayoutTreeAdapter<File> {
 
-    public MyMultiLayoutTreeAdapter(List<TreeNode<File>> dataToBind, List<TreeNode<File>> allData) {
-        super(dataToBind, allData);
+    public MyMultiLayoutTreeAdapter(List<TreeNode<File>> dataToBind) {
+        super(dataToBind);
     }
 
     //如果构造数据源时，传入1，则需要为 -1，0，1添加布局
@@ -329,7 +311,7 @@ public class MyMultiLayoutTreeAdapter extends MultiLayoutTreeAdapter<File> {
 
     @Override
     protected int getTreeNodeMargin() {
-        return DpUtil.dip2px(this.mContext, 30);
+        return DpUtil.dip2px(this.mContext, 10);
     }
 }
 
