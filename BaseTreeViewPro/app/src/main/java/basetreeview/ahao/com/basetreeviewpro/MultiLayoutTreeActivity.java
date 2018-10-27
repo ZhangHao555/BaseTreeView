@@ -56,6 +56,7 @@ public class MultiLayoutTreeActivity  extends AppCompatActivity{
     }
 
     private void initData() {
+        dataToBind.clear();
         dataToBind.addAll(TreeDataUtils.convertDataToTreeNode(DataSource.getFiles(),1));
         adapter = new MyMultiLayoutTreeAdapter(dataToBind);
     }

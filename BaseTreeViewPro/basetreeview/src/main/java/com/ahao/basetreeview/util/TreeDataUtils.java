@@ -1,7 +1,5 @@
 package com.ahao.basetreeview.util;
 
-import android.text.TextUtils;
-
 import com.ahao.basetreeview.model.NodeId;
 import com.ahao.basetreeview.model.TreeNode;
 import java.util.ArrayList;
