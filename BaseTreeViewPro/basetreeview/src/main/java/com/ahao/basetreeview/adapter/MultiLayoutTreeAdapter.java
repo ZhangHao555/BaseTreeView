@@ -23,14 +23,10 @@ public class MultiLayoutTreeAdapter<T extends NodeId> extends BaseMultiItemQuick
         void onLeafClicked(View view, TreeNode<T> node, int position);
     }
 
-    private List<TreeNode<T>> dataToBind;
-
     private OnTreeClickedListener onTreeClickedListener;
 
     public MultiLayoutTreeAdapter(final List<TreeNode<T>> dataToBind) {
         super(dataToBind);
-        this.dataToBind = dataToBind;
-
         addItemTypes();
 
         setOnItemClickListener(new OnItemClickListener() {

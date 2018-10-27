@@ -54,7 +54,8 @@ public class SingleLayoutTreeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        dataToBind = TreeDataUtils.convertDataToTreeNode(DataSource.getFiles());
+
+        dataToBind.addAll(TreeDataUtils.convertDataToTreeNode(DataSource.getFiles()));
         adapter = new MySingleLayoutTreeAdapter(R.layout.view_tree_level_0,dataToBind);
     }
 

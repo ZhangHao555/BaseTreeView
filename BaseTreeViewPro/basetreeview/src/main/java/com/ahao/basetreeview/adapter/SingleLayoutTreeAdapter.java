@@ -22,29 +22,26 @@ public class SingleLayoutTreeAdapter<T extends NodeId> extends BaseQuickAdapter<
         void onLeafClicked(View view, TreeNode<T> node, int position);
     }
 
-    private List<TreeNode<T>> dataToBind;
-
     private OnTreeClickedListener onTreeClickedListener;
 
     public SingleLayoutTreeAdapter(int layoutResId, @Nullable final List<TreeNode<T>> dataToBind) {
         super(layoutResId, dataToBind);
-        this.dataToBind = dataToBind;
 
         setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 TreeNode<T> node = dataToBind.get(position);
                 if (!node.isLeaf()) {
-                    List<TreeNode<T>> l = TreeDataUtils.getNodeChildren(node);
+                    List<TreeNode<T>> children = TreeDataUtils.getNodeChildren(node);
 
                     if (node.isExpand()) {
-                        dataToBind.removeAll(l);
+                        dataToBind.removeAll(children);
                         node.setExpand(false);
-                        notifyItemRangeRemoved(position + 1, l.size());
+                        notifyItemRangeRemoved(position + 1, children.size());
                     } else {
-                        dataToBind.addAll(position + 1, l);
+                        dataToBind.addAll(position + 1, children);
                         node.setExpand(true);
-                        notifyItemRangeInserted(position + 1, l.size());
+                        notifyItemRangeInserted(position + 1, children.size());
                     }
 
                     if (onTreeClickedListener != null) {

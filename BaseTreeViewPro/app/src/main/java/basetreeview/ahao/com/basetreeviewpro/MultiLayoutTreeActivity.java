@@ -20,6 +20,8 @@ public class MultiLayoutTreeActivity  extends AppCompatActivity{
 
     MyMultiLayoutTreeAdapter adapter;
 
+    private List<TreeNode<File>> allData = new ArrayList<>();
+
     private List<TreeNode<File>> dataToBind = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class MultiLayoutTreeActivity  extends AppCompatActivity{
     }
 
     private void initData() {
-        dataToBind = TreeDataUtils.convertDataToTreeNode(DataSource.getFiles(),1);
+        dataToBind.addAll(TreeDataUtils.convertDataToTreeNode(DataSource.getFiles(),1));
         adapter = new MyMultiLayoutTreeAdapter(dataToBind);
     }
 
